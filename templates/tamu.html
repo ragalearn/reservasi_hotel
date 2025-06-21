@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Kelola Tamu{% endblock %}
+{% block content %}
+<h2>Daftar Tamu</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Telepon</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tamu in tamus %}
+        <tr>
+            <td>{{ tamu.nama }}</td>
+            <td>{{ tamu.email }}</td>
+            <td>{{ tamu.telepon }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<form method="POST">
+    <input type="text" name="nama" placeholder="Nama" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="text" name="telepon" placeholder="Telepon">
+    <button type="submit" class="btn btn-primary">Tambah Tamu</button>
+</form>
+{% endblock %}

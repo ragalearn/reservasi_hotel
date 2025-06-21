@@ -1,0 +1,29 @@
+<!-- Modal Tambah Kamar -->
+<div class="modal fade" id="modalTambahKamar" tabindex="-1" aria-labelledby="modalTambahKamarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" method="POST" action="{{ url_for('kamar.kamar_add') }}">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTambahKamarLabel">Tambah Kamar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="namaKamarTambah" class="form-label">Nama Kamar</label>
+          <input type="text" class="form-control" id="namaKamarTambah" name="nama" required>
+        </div>
+        <div class="mb-3">
+          <label for="tipeKamarTambah" class="form-label">Tipe Kamar</label>
+          <input type="text" class="form-control" id="tipeKamarTambah" name="tipe" required>
+        </div>
+        <div class="mb-3">
+          <label for="hargaKamarTambah" class="form-label">Harga</label>
+          <input type="number" class="form-control" id="hargaKamarTambah" name="harga" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>

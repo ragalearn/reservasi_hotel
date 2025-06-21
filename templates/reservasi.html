@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Kelola Reservasi{% endblock %}
+{% block content %}
+<h2>Daftar Reservasi</h2>
+<table class="table table-bordered table-striped align-middle">
+    <thead class="table-warning">
+        <tr>
+            <th>ID</th>
+            <th>Tamu</th>
+            <th>Kamar</th>
+            <th>CI</th>
+            <th>CO</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservasi in reservasis %}
+        <tr>
+            <td>{{ reservasi.id }}</td>
+            <td><span class="badge bg-success">{{ reservasi.tamu.nama if reservasi.tamu else '' }}</span></td>
+            <td><span class="badge bg-primary">{{ reservasi.kamar.nama if reservasi.kamar else '' }}</span></td>
+            <td>{{ reservasi.check_in.strftime('%d-%m-%Y') if reservasi.check_in else '' }}</td>
+            <td>{{ reservasi.check_out.strftime('%d-%m-%Y') if reservasi.check_out else '' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

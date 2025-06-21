@@ -1,0 +1,11 @@
+body {
+    background: #f6f7fb;
+}
+.card {
+    border-radius: 1.5rem;
+}
+.navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card text-bg-primary shadow h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-door-closed display-3"></i>
+        <h5 class="card-title mt-3">Kamar</h5>
+        <a href="{{ url_for('kamar.kamar_list') }}" class="btn btn-light mt-2">Kelola Kamar</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-bg-success shadow h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-person-fill display-3"></i>
+        <h5 class="card-title mt-3">Tamu</h5>
+        <a href="{{ url_for('tamu.tamu_list') }}" class="btn btn-light mt-2">Kelola Tamu</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-bg-warning shadow h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-calendar-check display-3"></i>
+        <h5 class="card-title mt-3">Reservasi</h5>
+        <a href="{{ url_for('reservasi.reservasi_list') }}" class="btn btn-light mt-2">Kelola Reservasi</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
