@@ -22,11 +22,23 @@
         <td>{{ reservasi.id }}</td>
         <td>{{ reservasi.tamu.nama }}</td>
         <td>{{ reservasi.kamar.nama }}</td>
-        <td>{{ reservasi.tanggal_masuk.strftime('%d-%m-%Y') }}</td>
-        <td>{{ reservasi.tanggal_keluar.strftime('%d-%m-%Y') }}</td>
+        <td>
+          {% if reservasi.check_in %}
+            {{ reservasi.check_in.strftime('%d-%m-%Y') }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          {% if reservasi.check_out %}
+            {{ reservasi.check_out.strftime('%d-%m-%Y') }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
         <td>Rp{{ reservasi.total_harga }}</td>
         <td>
-          <a href="{{ url_for('reservasi.reservasi_edit', id=reservasi.id) }}" class="btn btn-outline-warning btn-sm"><i class="fas fa-pencil"></i></a>
+          <a href="{{ url_for('reservasi.reservasi_edit', id=reservasi.id) }}" class="btn btn-warning btn-sm">Edit</a>
           <form action="{{ url_for('reservasi.reservasi_delete', id=reservasi.id) }}" method="post" class="d-inline" onsubmit="return confirm('Hapus reservasi ini?')">
             <button class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
           </form>

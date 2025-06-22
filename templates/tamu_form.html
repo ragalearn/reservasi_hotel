@@ -14,6 +14,10 @@
         <input type="email" name="email" value="{{ tamu.email if tamu else '' }}" class="form-control" required>
       </div>
       <div class="mb-3">
+        <label for="alamat" class="form-label">Alamat</label>
+        <input type="text" class="form-control" id="alamat" name="alamat" value="{{ tamu.alamat if tamu else '' }}" required>
+      </div>
+      <div class="mb-3">
         <label class="form-label"><i class="fas fa-phone"></i> Telepon</label>
         <input type="text" name="telepon" value="{{ tamu.telepon if tamu else '' }}" class="form-control" required>
       </div>

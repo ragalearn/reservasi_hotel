@@ -49,7 +49,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand animate__animated animate__fadeIn" href="{{ url_for('dashboard') }}">
+            <a class="navbar-brand animate__animated animate__fadeIn" href="{{ url_for('dashboard.dashboard') }}">
                 <i class="fas fa-hotel"></i> HotelKu
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -57,23 +57,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item animate__animated animate__fadeInDown" style="animation-delay: 0.1s;">
-                        <a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'dashboard.dashboard' %}active{% endif %}" href="{{ url_for('dashboard.dashboard') }}">
                             <i class="fas fa-home"></i> Dashboard
                         </a>
                     </li>
-                    <li class="nav-item animate__animated animate__fadeInDown" style="animation-delay: 0.2s;">
-                        <a class="nav-link {% if request.endpoint.startswith('tamu') %}active{% endif %}" href="{{ url_for('tamu.tamu_list') }}">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint and request.endpoint.startswith('tamu.') %}active{% endif %}" href="{{ url_for('tamu.tamu_list') }}">
                             <i class="fas fa-users"></i> Tamu
                         </a>
                     </li>
-                    <li class="nav-item animate__animated animate__fadeInDown" style="animation-delay: 0.3s;">
-                        <a class="nav-link {% if request.endpoint.startswith('kamar') %}active{% endif %}" href="{{ url_for('kamar.kamar_list') }}">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint and request.endpoint.startswith('kamar.') %}active{% endif %}" href="{{ url_for('kamar.kamar_list') }}">
                             <i class="fas fa-bed"></i> Kamar
                         </a>
                     </li>
-                    <li class="nav-item animate__animated animate__fadeInDown" style="animation-delay: 0.4s;">
-                        <a class="nav-link {% if request.endpoint.startswith('reservasi') %}active{% endif %}" href="{{ url_for('reservasi.reservasi_list') }}">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint and request.endpoint.startswith('reservasi.') %}active{% endif %}" href="{{ url_for('reservasi.reservasi_list') }}">
                             <i class="fas fa-calendar-check"></i> Reservasi
                         </a>
                     </li>

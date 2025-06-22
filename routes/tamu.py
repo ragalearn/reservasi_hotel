@@ -5,6 +5,10 @@ from models import db
 tamu_bp = Blueprint('tamu', __name__, url_prefix='/tamu')
 
 @tamu_bp.route('/')
+def tamu_root():
+    return redirect(url_for('tamu.tamu_list'))
+
+@tamu_bp.route('/list')
 def tamu_list():
     if 'user_id' not in session:
         return redirect(url_for('login'))
@@ -17,9 +21,10 @@ def tamu_add():
         return redirect(url_for('login'))
     if request.method == "POST":
         nama = request.form['nama']
+        alamat = request.form['alamat']         # ambil alamat dari form
         email = request.form['email']
         telepon = request.form['telepon']
-        t = Tamu(nama=nama, email=email, telepon=telepon)
+        t = Tamu(nama=nama, alamat=alamat, email=email, telepon=telepon)
         db.session.add(t)
         db.session.commit()
         flash('Tamu berhasil ditambahkan!', 'success')
@@ -33,6 +38,7 @@ def tamu_edit(id):
     tamu = Tamu.query.get_or_404(id)
     if request.method == "POST":
         tamu.nama = request.form['nama']
+        tamu.alamat = request.form['alamat']     # update alamat juga
         tamu.email = request.form['email']
         tamu.telepon = request.form['telepon']
         db.session.commit()

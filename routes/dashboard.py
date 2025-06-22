@@ -3,16 +3,16 @@ from models.tamu import Tamu
 from models.kamar import Kamar
 from models.reservasi import Reservasi
 from datetime import date
-from sqlalchemy import extract, func
+from sqlalchemy import extract
 
 dashboard_bp = Blueprint('dashboard', __name__)
 
 @dashboard_bp.route('/')
 def dashboard():
-    if 'user_id' not in session:
+    if 'user_id' not in session:    
         return redirect(url_for('login'))
 
-    # Statistik dasar
+    # Query data langsung dari database setiap request
     total_tamu = Tamu.query.count()
     total_kamar = Kamar.query.count()
     total_reservasi = Reservasi.query.count()
@@ -28,9 +28,8 @@ def dashboard():
         ).count()
         chart_data.append(jml)
 
-    # Pemberitahuan dinamis (bisa diambil dari reservasi terbaru, status kamar, dll)
+    # Pemberitahuan dinamis
     pemberitahuan = []
-    # Contoh: 5 kamar perlu pembersihan
     kamar_perlu_pembersihan = Kamar.query.filter_by(status='Perlu Pembersihan').count() if hasattr(Kamar, 'status') else 0
     if kamar_perlu_pembersihan > 0:
         pemberitahuan.append({
@@ -38,7 +37,6 @@ def dashboard():
             'waktu': "1 jam lalu",
             'icon': "fas fa-bed text-warning"
         })
-    # Contoh: reservasi pending
     reservasi_pending = Reservasi.query.filter_by(status='Pending').count() if hasattr(Reservasi, 'status') else 0
     if reservasi_pending > 0:
         pemberitahuan.append({
@@ -46,7 +44,6 @@ def dashboard():
             'waktu': "2 jam lalu",
             'icon': "fas fa-user-clock text-info"
         })
-    # Contoh: check-in hari ini
     checkin_hari_ini = Reservasi.query.filter(Reservasi.check_in == date.today()).count()
     if checkin_hari_ini > 0:
         pemberitahuan.append({
@@ -54,7 +51,6 @@ def dashboard():
             'waktu': "Hari ini",
             'icon': "fas fa-calendar-day text-success"
         })
-    # Contoh: check-out hari ini
     checkout_hari_ini = Reservasi.query.filter(Reservasi.check_out == date.today()).count()
     if checkout_hari_ini > 0:
         pemberitahuan.append({
@@ -63,7 +59,6 @@ def dashboard():
             'icon': "fas fa-calendar-times text-danger"
         })
 
-    # Tanggal hari ini (opsional, JS tetap akan overwrite)
     tanggal_hari_ini = date.today().strftime("%A, %d %B %Y")
 
     return render_template(

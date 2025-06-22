@@ -19,11 +19,23 @@
           </tr>
           <tr>
             <th><i class="fas fa-calendar-day"></i> Tanggal Masuk</th>
-            <td>{{ reservasi.tanggal_masuk.strftime('%d-%m-%Y') }}</td>
+            <td>
+              {% if reservasi.check_in %}
+                {{ reservasi.check_in.strftime('%d-%m-%Y') }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
           </tr>
           <tr>
             <th><i class="fas fa-calendar-day"></i> Tanggal Keluar</th>
-            <td>{{ reservasi.tanggal_keluar.strftime('%d-%m-%Y') }}</td>
+            <td>
+              {% if reservasi.check_out %}
+                {{ reservasi.check_out.strftime('%d-%m-%Y') }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
           </tr>
           <tr>
             <th><i class="fas fa-money-bill"></i> Total Harga</th>

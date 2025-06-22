@@ -5,6 +5,10 @@ from models import db
 kamar_bp = Blueprint('kamar', __name__, url_prefix='/kamar')
 
 @kamar_bp.route('/')
+def kamar_root():
+    return redirect(url_for('kamar.kamar_list'))
+
+@kamar_bp.route('/list')
 def kamar_list():
     if 'user_id' not in session:
         return redirect(url_for('login'))
