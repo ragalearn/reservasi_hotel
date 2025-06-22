@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Tambahkan Ulasan</h3>
+<form method="post">
+  <label for="rating">Rating:</label>
+  <select name="rating" id="rating">
+    {% for i in range(1,6) %}
+      <option value="{{ i }}">{{ i }} Bintang</option>
+    {% endfor %}
+  </select>
+  <textarea name="komentar" placeholder="Tulis ulasan Anda..." required></textarea>
+  <button type="submit" class="btn btn-primary">Kirim</button>
+</form>
+{% endblock %}

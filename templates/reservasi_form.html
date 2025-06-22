@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}{{ form_title }}{% endblock %}
+{% block content %}
+<div class="card shadow mb-4 animate__animated animate__fadeIn">
+  <div class="card-header bg-gradient text-white"><i class="fas fa-calendar-plus"></i> {{ form_title }}</div>
+  <div class="card-body">
+    <form method="post">
+      <div class="mb-3">
+        <label class="form-label"><i class="fas fa-user"></i> Nama Tamu</label>
+        <select name="tamu_id" class="form-select" required>
+          <option value="">Pilih Tamu</option>
+          {% for tamu in tamus %}
+            <option value="{{ tamu.id }}" {% if reservasi and reservasi.tamu_id == tamu.id %}selected{% endif %}>{{ tamu.nama }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><i class="fas fa-bed"></i> Kamar</label>
+        <select name="kamar_id" class="form-select" required>
+          <option value="">Pilih Kamar</option>
+          {% for kamar in kamars %}
+            <option value="{{ kamar.id }}" {% if reservasi and reservasi.kamar_id == kamar.id %}selected{% endif %}>{{ kamar.nama }} ({{ kamar.tipe }})</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-md-6">
+          <label class="form-label"><i class="fas fa-calendar-day"></i> Tanggal Masuk</label>
+          <input type="date" name="tanggal_masuk" value="{{ reservasi.tanggal_masuk if reservasi else '' }}" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label"><i class="fas fa-calendar-day"></i> Tanggal Keluar</label>
+          <input type="date" name="tanggal_keluar" value="{{ reservasi.tanggal_keluar if reservasi else '' }}" class="form-control" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><i class="fas fa-money-bill"></i> Total Harga</label>
+        <input type="number" name="total_harga" value="{{ reservasi.total_harga if reservasi else '' }}" class="form-control" readonly>
+      </div>
+      <div class="mt-4">
+        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Simpan</button>
+        <a href="{{ url_for('reservasi.reservasi_list') }}" class="btn btn-secondary ms-2"><i class="fas fa-arrow-left"></i> Kembali</a>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  // Otomatis hitung total harga saat kamar/ tanggal diubah (implementasikan endpoint /api/hitung_harga sendiri)
+  document.querySelectorAll('[name="kamar_id"],[name="tanggal_masuk"],[name="tanggal_keluar"]').forEach(el => {
+    el.addEventListener('change', function() {
+      const kamarId = document.querySelector('[name="kamar_id"]').value;
+      const tglMasuk = document.querySelector('[name="tanggal_masuk"]').value;
+      const tglKeluar = document.querySelector('[name="tanggal_keluar"]').value;
+      if (kamarId && tglMasuk && tglKeluar) {
+        fetch(`/api/hitung_harga?kamar_id=${kamarId}&tanggal_masuk=${tglMasuk}&tanggal_keluar=${tglKeluar}`)
+          .then(resp => resp.json())
+          .then(data => {
+            document.querySelector('[name="total_harga"]').value = data.total_harga || '';
+          });
+      }
+    });
+  });
+</script>
+{% endblock %}

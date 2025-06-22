@@ -14,9 +14,11 @@ def create_app():
     from routes.kamar import kamar_bp
     from routes.tamu import tamu_bp
     from routes.reservasi import reservasi_bp
+    from routes.dashboard import dashboard_bp
     app.register_blueprint(kamar_bp)
     app.register_blueprint(tamu_bp)
     app.register_blueprint(reservasi_bp)
+    app.register_blueprint(dashboard_bp)
 
     @app.route('/')
     def index():

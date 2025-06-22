@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Edit Kamar{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow animate__animated animate__fadeIn">
+      <div class="card-header bg-gradient text-white"><i class="fas fa-bed"></i> Edit Kamar</div>
+      <div class="card-body">
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-bed"></i> Nama Kamar</label>
+            <input type="text" name="nama" value="{{ kamar.nama }}" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-door-open"></i> Tipe</label>
+            <input type="text" name="tipe" value="{{ kamar.tipe }}" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-money-bill-wave"></i> Harga</label>
+            <input type="number" name="harga" value="{{ kamar.harga }}" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-users"></i> Kapasitas</label>
+            <input type="number" name="kapasitas" value="{{ kamar.kapasitas }}" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-list"></i> Fasilitas (pisahkan dengan koma)</label>
+            <input type="text" name="fasilitas" value="{{ kamar.fasilitas }}" class="form-control">
+          </div>
+          <div class="mt-4">
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Simpan</button>
+            <a href="{{ url_for('kamar.kamar_detail', id=kamar.id) }}" class="btn btn-secondary ms-2"><i class="fas fa-arrow-left"></i> Batal</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

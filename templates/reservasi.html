@@ -1,27 +1,75 @@
 {% extends 'base.html' %}
-{% block title %}Kelola Reservasi{% endblock %}
+{% block title %}Reservasi{% endblock %}
 {% block content %}
-<h2>Daftar Reservasi</h2>
-<table class="table table-bordered table-striped align-middle">
-    <thead class="table-warning">
-        <tr>
-            <th>ID</th>
-            <th>Tamu</th>
-            <th>Kamar</th>
-            <th>CI</th>
-            <th>CO</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for reservasi in reservasis %}
-        <tr>
+<div class="row">
+  <div class="col-lg-7">
+    <h2 class="mb-4"><i class="fas fa-calendar-check"></i> Daftar Reservasi</h2>
+    <div class="table-responsive rounded shadow-sm bg-white animate__animated animate__fadeIn">
+      <table class="table align-middle table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th><i class="fas fa-hashtag"></i> ID</th>
+            <th><i class="fas fa-user"></i> Tamu</th>
+            <th><i class="fas fa-bed"></i> Kamar</th>
+            <th><i class="fas fa-calendar-day"></i> Check In</th>
+            <th><i class="fas fa-calendar-day"></i> Check Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reservasi in reservasis %}
+          <tr>
             <td>{{ reservasi.id }}</td>
-            <td><span class="badge bg-success">{{ reservasi.tamu.nama if reservasi.tamu else '' }}</span></td>
-            <td><span class="badge bg-primary">{{ reservasi.kamar.nama if reservasi.kamar else '' }}</span></td>
-            <td>{{ reservasi.check_in.strftime('%d-%m-%Y') if reservasi.check_in else '' }}</td>
-            <td>{{ reservasi.check_out.strftime('%d-%m-%Y') if reservasi.check_out else '' }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            <td>{{ reservasi.tamu.nama }}</td>
+            <td>{{ reservasi.kamar.nama }}</td>
+            <td>{{ reservasi.check_in.strftime('%d-%m-%Y') }}</td>
+            <td>{{ reservasi.check_out.strftime('%d-%m-%Y') }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="text-center text-muted">Belum ada reservasi.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="card shadow animate__animated animate__fadeInRight">
+      <div class="card-header bg-gradient text-white">
+        <i class="fas fa-plus-circle"></i> Tambah Reservasi
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-user"></i> Nama Tamu</label>
+            <select name="tamu_id" class="form-select" required>
+              <option value="">Pilih Tamu</option>
+              {% for tamu in tamus %}
+                <option value="{{ tamu.id }}">{{ tamu.nama }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-bed"></i> Kamar</label>
+            <select name="kamar_id" class="form-select" required>
+              <option value="">Pilih Kamar</option>
+              {% for kamar in kamars %}
+                <option value="{{ kamar.id }}">{{ kamar.nama }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-calendar-day"></i> Check In</label>
+            <input type="date" name="check_in" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-calendar-day"></i> Check Out</label>
+            <input type="date" name="check_out" class="form-control" required>
+          </div>
+          <div class="mt-4">
+            <button type="submit" class="btn btn-success w-100"><i class="fas fa-save"></i> Simpan Reservasi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

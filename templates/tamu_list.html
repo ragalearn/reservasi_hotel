@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Daftar Tamu{% endblock %}
+{% block content %}
+<h2 class="mb-4"><i class="fas fa-users"></i> Daftar Tamu</h2>
+<a href="{{ url_for('tamu.tamu_add') }}" class="btn btn-primary mb-3"><i class="fas fa-plus-circle"></i> Tambah Tamu</a>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for tamu in tamus %}
+  <div class="col">
+    <div class="card shadow h-100 animate__animated animate__fadeInUp">
+      <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-user"></i> {{ tamu.nama }}</h5>
+        <p class="card-text mb-1"><i class="fas fa-envelope"></i> {{ tamu.email }}</p>
+        <p class="card-text mb-1"><i class="fas fa-phone"></i> {{ tamu.telepon }}</p>
+        <div class="mt-3">
+          <a href="{{ url_for('tamu.tamu_detail', id=tamu.id) }}" class="btn btn-outline-info btn-sm"><i class="fas fa-eye"></i> Detail</a>
+          <a href="{{ url_for('tamu.tamu_edit', id=tamu.id) }}" class="btn btn-outline-warning btn-sm"><i class="fas fa-pencil"></i> Edit</a>
+          <form action="{{ url_for('tamu.tamu_delete', id=tamu.id) }}" method="post" class="d-inline" onsubmit="return confirm('Hapus tamu ini?')">
+            <button class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="col">
+    <div class="alert alert-warning">Belum ada data tamu.</div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

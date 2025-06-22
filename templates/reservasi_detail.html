@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Detail Reservasi{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow animate__animated animate__fadeIn">
+      <div class="card-header bg-gradient text-white">
+        <h3 class="mb-0"><i class="fas fa-calendar-check"></i> Detail Reservasi #{{ reservasi.id }}</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-borderless mb-0">
+          <tr>
+            <th style="width: 40%"><i class="fas fa-user"></i> Nama Tamu</th>
+            <td>{{ reservasi.tamu.nama }}</td>
+          </tr>
+          <tr>
+            <th><i class="fas fa-bed"></i> Kamar</th>
+            <td>{{ reservasi.kamar.nama }} ({{ reservasi.kamar.tipe }})</td>
+          </tr>
+          <tr>
+            <th><i class="fas fa-calendar-day"></i> Tanggal Masuk</th>
+            <td>{{ reservasi.tanggal_masuk.strftime('%d-%m-%Y') }}</td>
+          </tr>
+          <tr>
+            <th><i class="fas fa-calendar-day"></i> Tanggal Keluar</th>
+            <td>{{ reservasi.tanggal_keluar.strftime('%d-%m-%Y') }}</td>
+          </tr>
+          <tr>
+            <th><i class="fas fa-money-bill"></i> Total Harga</th>
+            <td>Rp{{ reservasi.total_harga }}</td>
+          </tr>
+        </table>
+        <div class="mt-4">
+          <a href="{{ url_for('reservasi.reservasi_edit', id=reservasi.id) }}" class="btn btn-outline-warning me-2"><i class="fas fa-pencil-alt"></i> Edit</a>
+          <a href="{{ url_for('reservasi.reservasi_list') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
