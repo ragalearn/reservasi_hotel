@@ -58,6 +58,10 @@ def tamu_delete(id):
     if 'user_id' not in session:
         return redirect(url_for('login'))
     tamu = Tamu.query.get_or_404(id)
+    # Cegah hapus tamu jika masih punya reservasi
+    if hasattr(tamu, 'reservasis') and tamu.reservasis and len(tamu.reservasis) > 0:
+        flash('Tamu tidak bisa dihapus karena masih punya reservasi.', 'danger')
+        return redirect(url_for('tamu.tamu_list'))
     db.session.delete(tamu)
     db.session.commit()
     flash('Tamu berhasil dihapus!', 'success')

@@ -60,6 +60,10 @@ def kamar_delete(id):
     if 'user_id' not in session:
         return redirect(url_for('login'))
     kamar = Kamar.query.get_or_404(id)
+    # Cegah hapus kamar jika masih punya reservasi
+    if hasattr(kamar, 'reservasis') and kamar.reservasis and len(kamar.reservasis) > 0:
+        flash('Kamar tidak bisa dihapus karena masih punya reservasi.', 'danger')
+        return redirect(url_for('kamar.kamar_list'))
     db.session.delete(kamar)
     db.session.commit()
     flash('Kamar berhasil dihapus!', 'success')

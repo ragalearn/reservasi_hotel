@@ -7,7 +7,6 @@ def create_app():
     app.config.from_object(Config)
     db.init_app(app)
 
-    # Penting: import model SETELAH db.init_app agar context sudah benar
     from models.tamu import Tamu
     from models.kamar import Kamar
     from models.reservasi import Reservasi
@@ -24,10 +23,6 @@ def create_app():
     app.register_blueprint(dashboard_bp)  # TANPA url_prefix!
     app.register_blueprint(api_bp)
 
-    # HAPUS/COMMENT route '/' di sini!
-    # @app.route('/')
-    # def index():
-    #     return redirect(url_for('dashboard.dashboard'))
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
