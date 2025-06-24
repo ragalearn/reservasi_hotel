@@ -21,9 +21,14 @@ def tamu_add():
         return redirect(url_for('login'))
     if request.method == "POST":
         nama = request.form['nama']
-        alamat = request.form['alamat']         # ambil alamat dari form
+        alamat = request.form['alamat']
         email = request.form['email']
         telepon = request.form['telepon']
+        # Cek apakah email sudah terdaftar
+        existing = Tamu.query.filter_by(email=email).first()
+        if existing:
+            flash('Email sudah terdaftar. Gunakan email lain.', 'danger')
+            return redirect(url_for('tamu.tamu_add'))
         t = Tamu(nama=nama, alamat=alamat, email=email, telepon=telepon)
         db.session.add(t)
         db.session.commit()
@@ -37,9 +42,16 @@ def tamu_edit(id):
         return redirect(url_for('login'))
     tamu = Tamu.query.get_or_404(id)
     if request.method == "POST":
+        # Validasi agar email tetap unik saat diedit
+        new_email = request.form['email']
+        if new_email != tamu.email:
+            existing = Tamu.query.filter_by(email=new_email).first()
+            if existing:
+                flash('Email sudah terdaftar. Gunakan email lain.', 'danger')
+                return redirect(url_for('tamu.tamu_edit', id=id))
         tamu.nama = request.form['nama']
-        tamu.alamat = request.form['alamat']     # update alamat juga
-        tamu.email = request.form['email']
+        tamu.alamat = request.form['alamat']
+        tamu.email = new_email
         tamu.telepon = request.form['telepon']
         db.session.commit()
         flash('Tamu berhasil diubah!', 'success')
