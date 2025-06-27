@@ -1,6 +1,6 @@
 # Reservasi Hotel
 
-Reservasi Hotel adalah sebuah aplikasi berbasis Python yang dirancang untuk memudahkan proses pemesanan kamar hotel secara digital. Proyek ini dikembangkan dengan tujuan memberikan solusi sederhana dan efisien untuk mengelola reservasi, data pelanggan, serta ketersediaan kamar hotel.
+Aplikasi web ini dirancang untuk mengelola operasional hotel secara efisien, meliputi manajemen tamu, kamar, reservasi dan mampi menampilkan fungsi CRUD (Create, Read, Update, Delete). Dilengkapi dengan antarmuka web intuitif dan API untuk integrasi sistem lain, serta menggunakan database MySQL untuk penyimpanan data yang baik. Program ini merupakan tantangan project UAS (Ujian Akhir Semester).
 
 ## Tujuan Proyek
 
@@ -47,10 +47,3 @@ Reservasi Hotel adalah sebuah aplikasi berbasis Python yang dirancang untuk memu
 2. **Ikuti instruksi pada layar untuk melakukan reservasi, melihat data pelanggan, atau mengatur data kamar.**
 
 3. **Data akan tersimpan di file lokal atau database sesuai implementasi.**
-
-## Kontribusi
-
-Kontribusi sangat terbuka untuk memperbaiki bug, menambah fitur, atau meningkatkan dokumentasi. Silakan buat pull request atau issue pada repositori ini.
-
-**Catatan:**  
-Silakan sesuaikan pengaturan, konfigurasi, dan dependensi sesuai kebutuhan proyek Anda.
